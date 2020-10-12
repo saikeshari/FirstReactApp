@@ -1,9 +1,23 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import Renderleader from './RenderLeader';
 
 function About(props) {
+
+    const Renderleader = (props) => {
+        return(
+            <Media className="m-2 mb-4">
+                <Media left>
+                    <Media object src="/assets/images/alberto.png" alt="Leader Image" />
+                    </Media>
+                    <Media body className="ml-5">
+                        <Media heading>{props.leader.name}</Media>
+                        <p>{props.leader.designation}</p>
+                        <p>{props.leader.description}</p>
+                    </Media>
+            </Media>
+        );
+    }
 
     const leaders = props.leaders.map((leader) => {
         return (
