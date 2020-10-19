@@ -9,9 +9,11 @@ import { NavLink } from 'react-router-dom';
         this.state={
             isNavOpen:false
         }
+        //BIND TOGGLE NAV FUNCTION TO USE IN THE FUNCTION
         this.toggleNav=this.toggleNav.bind(this);
     }
 
+    //FUNCTION TO SEE WHETHER WE HAVE TO COLLAPSE THE NAVBAR OR NOT
     toggleNav(){
         this.setState({
             isNavOpen: !this.state.isNavOpen
@@ -21,6 +23,8 @@ import { NavLink } from 'react-router-dom';
 
      render(){
          return(
+             
+             //REACT.FRAGMENT RETURNS A BUNCH OF REACT ELEMENTS
              <React.Fragment>
                 < Navbar dark expand="md">
                 <div className="container">

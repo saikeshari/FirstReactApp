@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, BreadcrumbItem, Breadcrumb } from 'reactstrap'
 import {Link} from 'react-router-dom';
 
+//DISPLAYING DISH DETAILS IN A CARD
     function RenderDish({dish}){
         if(dish!=null)
         {
@@ -22,6 +23,7 @@ import {Link} from 'react-router-dom';
         }
     }
 
+    //DISPLAYING DISH COMMENTS 
     function RenderComments({comments}){
         if(comments!=null)
         {
@@ -29,6 +31,7 @@ import {Link} from 'react-router-dom';
                 return(
                     <div>
                             <div className="m-3">{commentDisplay.comment}</div>
+                            {/* NEW INTL.DATA.TIME.FORMAT CONVERTS DATE INTO AS SUCH DISPLAYED NORMALLY */}
                             <div className="m-3">-- {commentDisplay.author} , {new Intl.DateTimeFormat('en-US', {year:'numeric', month:'short', day:'2-digit'}).format(new Date(Date.parse(commentDisplay.date))) }</div>
                     </div>
                 );

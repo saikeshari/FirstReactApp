@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap'
 
+//RENDER CARD OF LEADER,PROMOTION,DISH ONE BY ONE
 function RenderCard({item}){
     return(
         <Card>
@@ -14,6 +15,7 @@ function RenderCard({item}){
     );
 }
 
+//PROPS ARE FEATURED DISH, PROMOTION, LEADER
 function Home(props){
     return(
         <div className="container">

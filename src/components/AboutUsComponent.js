@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 function About(props) {
 
+    //RENDERING EACH LEADER AND HIS DETAILS
     const Renderleader = (props) => {
         return(
             <Media className="m-2 mb-4">

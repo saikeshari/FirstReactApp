@@ -25,7 +25,8 @@ class Contact extends Component {
         this.handleInputChange=this.handleInputChange.bind(this);
         this.handleBlur=this.handleBlur.bind(this);
     }
-    //for reflecting the change in input box to the user who is filling the form
+
+    //FOR REFLECTING THE CHNAGE IN INPUT BOX TO THE USER WHI IS FILLING THE FORM
     handleInputChange(event){
         const target=event.target;
         const value=target.type === 'checked' ? target.checked : target.value;
@@ -36,19 +37,21 @@ class Contact extends Component {
         });
     }
 
+    //SUBMITTING THE FORM
     handleSubmit(event){
         console.log("Current state is: " + JSON.stringify(this.state));
         alert("Current state is: " + JSON.stringify(this.state));
         event.preventDefault();
     }
 
-    //validation seeing if that feild is touched,thus, making these 4 inputs mandatory
+    //DETECTING CHANGE AND MAKING ITS TOUCHED - TRUE
     handleBlur= (field) => (evt) =>{
         this.setState({
             touched: { ...this.state.touched, [field]:true}
         });
     }
 
+    //VALIDATION SEEING IF THAT FEILD IS TOUCHED, THUS, MAKING THSES 4 INPUTS MANDATORY
     validate(firstname, lastname, telnum, email){
         const errors={
             firstname:'',
@@ -69,6 +72,7 @@ class Contact extends Component {
         if(this.state.touched.lastname && lastname.length>10){
             errors.lastname='Last name should be <=10 characters';
         }
+        //REG SEES IF IT IS ALL NUM
         const reg=/^\d+$/;
         if(this.state.touched.telnum && !reg.test(telnum)){
             errors.telnum='Tel. Number should be all numbers';
@@ -83,6 +87,11 @@ class Contact extends Component {
     }
 
     render(){
+
+        //MAKING ERRORS FOR EACH OF 4 VALUES
+        //FIRST IT WILL BE EMPTY THEN UPON FILLING THE FORM, WE CHECK THE INPUT FIELD IN VALIDATE FUNCTION
+        //IF IT CONTAINS ERROR WE WILL ASSIGN ERROR.THAT-VARIABLE SOME ERROR MESSAGE
+        //SO IF ERROR IS EMPTY VALID INPUT,  OTHERWISE INVALID INPUT
         const errors=this.validate(this.state.firstname, this.state.lastname, this.state.telnum, this.state.email);
         return(
             <div className="container">
@@ -137,6 +146,7 @@ class Contact extends Component {
                                     valid={errors.firstname === ''}
                                     invalid={errors.firstname !== ''}
                                     onChange={this.handleInputChange} />
+                                    {/* FORMFEEDBACK DISPLAYS LIVE ERROR BELOW THE INPUT BOX */}
                                     <FormFeedback>{errors.firstname}</FormFeedback>
                                 </Col>
                             </FormGroup>
