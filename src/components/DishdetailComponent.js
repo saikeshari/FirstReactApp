@@ -4,6 +4,7 @@ import { Card, CardImg, CardImgOverlay, Button, CardText,Row, CardBody, CardTitl
 import {Link} from 'react-router-dom';
 import {Control, LocalForm,Errors} from 'react-redux-form';
 
+//validation functions
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => (val) && (val.length >= len); 
 

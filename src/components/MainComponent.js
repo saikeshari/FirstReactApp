@@ -12,6 +12,7 @@ import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 import About from './AboutUsComponent';
 
+//uses state to define variables dishes,comments,promos,leaders to be used here
 const mapStateToProps = state => {
   return{
     dishes: state.dishes,
@@ -73,4 +74,5 @@ class Main extends Component{
   }
 }
 
+//for connecting Main component to the store provided by redux
 export default withRouter(connect(mapStateToProps)(Main));
