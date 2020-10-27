@@ -23,6 +23,8 @@ const mapStateToProps = state => {
   }
 };
 
+//it dispatches the function with desired parameters for an action to take place
+//remember every action can be taken place through dispatch
 const mapDispatchToProps = dispatch => ({
   addComment: (dishId, rating, comment, author) => dispatch(addComment(dishId, rating, comment, author))
 })

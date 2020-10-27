@@ -49,6 +49,7 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
             this.setState({
                 isModalOpen: !this.state.isModalOpen
             });
+            //calling addComments function to add comment into comments to bw shown
             this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
         }
 
