@@ -3,6 +3,7 @@ import { Card, CardImg, CardImgOverlay, Button, CardText,Row, CardBody, CardTitl
     Modal, ModalBody,ModalHeader, Form, FormGroup, Input, Label, Col } from 'reactstrap'
 import {Link} from 'react-router-dom';
 import {Control, LocalForm,Errors} from 'react-redux-form';
+import {Loading} from './LoadingComponent';
 
 //validation functions
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -144,6 +145,25 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
 
     const Dishdetail = (props) =>
     {
+        if(props.isLoading) {
+            return(
+                <div className="container">
+                    <div className="row">
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }
+
+        else if(props.errmess) {
+            return(
+                <div className="container">
+                    <div className="row">
+                        <h4>{this.props.errmess}</h4>
+                    </div>
+                </div>
+            );
+        }
         if(props.dish!=null)
         {
             return(

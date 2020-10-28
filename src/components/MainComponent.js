@@ -11,7 +11,7 @@ import Footer from './FooterComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 import About from './AboutUsComponent';
-import { addComment } from '../redux/ActionCreators';
+import { addComment, fetchDishes } from '../redux/ActionCreators';
 
 //uses state to define variables dishes,comments,promos,leaders to be used here
 const mapStateToProps = state => {
@@ -24,9 +24,11 @@ const mapStateToProps = state => {
 };
 
 //it dispatches the function with desired parameters for an action to take place
+//by writing this we can make use of it in maincomponent
 //remember every action can be taken place through dispatch
 const mapDispatchToProps = dispatch => ({
-  addComment: (dishId, rating, comment, author) => dispatch(addComment(dishId, rating, comment, author))
+  addComment: (dishId, rating, comment, author) => dispatch(addComment(dishId, rating, comment, author)),
+  fetchDishes: () => {dispatch(fetchDishes())}
 })
 
 class Main extends Component{
@@ -35,12 +37,20 @@ class Main extends Component{
     super(props);
   }
 
+  //this is a lifecycle methos
+  //it says when component is mounting, dishes will be fetched
+  componentDidMount() {
+    this.props.fetchDishes();
+  }
+
 
   render() {
     //DISPLAYING FEATURED DISH,LEADER,PROMOTION
     const HomePage = () => {
       return(
-        <Home dish={this.props.dishes.filter((dish) => dish.featured)[0]} 
+        <Home item={this.props.dishes.dishes.filter((item) => item.featured)[0]} 
+              isLoading = {this.props.dishes.isLoading}
+              dishesErrMess = {this.props.dishes.errmess}
               leader={this.props.leaders.filter((leader) => leader.featured)[0]}
               promotion={this.props.promotions.filter((promotion) => promotion.featured)[0]}
         />
@@ -56,10 +66,12 @@ class Main extends Component{
         // PARSEINT IS A JS FUNCTION WHICH WILL CONVERT THE THE GIVEN STRING OF NUMBERS 
         // ACCORDING TO THE BASE OR RADIX SPECIFIED
 
-        <Dishdetail dish={this.props.dishes.filter((dish) => dish.id === parseInt(match.params.dishId, 10))[0]}
-          comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10))}
-          addComment={this.props.addComment}
-         />
+        <Dishdetail dish={this.props.dishes.dishes.filter((dish) => dish.id === parseInt(match.params.dishId, 10))[0]}
+              isLoading = {this.props.dishes.isLoading}
+              errmess = {this.props.dishes.errmess}
+              comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10))}
+              addComment={this.props.addComment}
+            />
       );
     }
 
