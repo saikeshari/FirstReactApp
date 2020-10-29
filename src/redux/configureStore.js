@@ -7,9 +7,11 @@ import {createStore, combineReducers, applyMiddleware} from 'redux';
 import {Dishes} from './dishes';
 import {Comments} from './comments';
 import {Promotions} from './promotions';
+import {createForms} from 'react-redux-form';
 import {Leaders} from './leaders';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
+import { initialFeedback } from './forms';
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -17,7 +19,11 @@ export const ConfigureStore = () => {
             dishes: Dishes,
             comments: Comments,
             promotions: Promotions,
-            leaders: Leaders
+            leaders: Leaders,
+            //createForms defines necessary reducer functions for us to use
+            ...createForms({
+                feedback:initialFeedback
+            })
         }),
         //for making use of thunk and logger in our application
         applyMiddleware(thunk,logger)
