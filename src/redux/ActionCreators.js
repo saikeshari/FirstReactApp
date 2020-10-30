@@ -1,5 +1,4 @@
 import * as ActionTypes from './ActionTypes';
-import {DISHES} from '../components/shared/dishes';
 import {baseUrl} from '../components/shared/baseUrl';
 //specifies the payload (variables necesaary) to do the desired action type
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Home from './HomeComponent';
-import { Navbar, NavbarBrand } from 'reactstrap';
 import Menu from './MenuComponent';
 import Contact from './ContactComponent';
 import Dishdetail from './DishdetailComponent';
@@ -40,9 +39,6 @@ const mapDispatchToProps = dispatch => ({
 
 class Main extends Component{
   
-  constructor(props){
-    super(props);
-  }
 
   //this is a lifecycle methos
   //it says when component is mounting, dishes will be fetched
