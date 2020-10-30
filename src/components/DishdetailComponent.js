@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import {Control, LocalForm,Errors} from 'react-redux-form';
 import {Loading} from './LoadingComponent';
 import {baseUrl} from './shared/baseUrl';
+import {FadeTransform, Fade, Stagger} from 'react-animation-components';
 
 //validation functions
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -15,13 +16,18 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
         if(dish!=null)
         {
           return(
-            <Card>
-              <CardImg width="100%" object src={baseUrl + dish.image} alt={dish.name} />
-              <CardBody>
-                <CardTitle>{dish.name}</CardTitle>
-                <CardText>{dish.description}</CardText>
-              </CardBody>
-            </Card>
+            <FadeTransform in
+            transformProps={{
+                exitTransform: 'scale(0.5) translateY(-50%)'
+            }}>
+                <Card>
+                <CardImg width="100%" object src={baseUrl + dish.image} alt={dish.name} />
+                <CardBody>
+                    <CardTitle>{dish.name}</CardTitle>
+                    <CardText>{dish.description}</CardText>
+                </CardBody>
+                </Card>
+            </FadeTransform>
           )
         }
         else{
@@ -117,9 +123,11 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
             const comm=comments.map((commentDisplay) =>{
                 return(
                     <div>
-                            <div className="m-3">{commentDisplay.comment}</div>
-                            {/* NEW INTL.DATA.TIME.FORMAT CONVERTS DATE INTO AS SUCH DISPLAYED NORMALLY */}
-                            <div className="m-3">-- {commentDisplay.author} , {new Intl.DateTimeFormat('en-US', {year:'numeric', month:'short', day:'2-digit'}).format(new Date(Date.parse(commentDisplay.date))) }</div>
+                        <Fade in>
+                                <div className="m-3">{commentDisplay.comment}</div>
+                                {/* NEW INTL.DATA.TIME.FORMAT CONVERTS DATE INTO AS SUCH DISPLAYED NORMALLY */}
+                                <div className="m-3">-- {commentDisplay.author} , {new Intl.DateTimeFormat('en-US', {year:'numeric', month:'short', day:'2-digit'}).format(new Date(Date.parse(commentDisplay.date))) }</div>
+                        </Fade>
                     </div>
                 );
             });
@@ -130,7 +138,9 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
                         <h4><strong>Comments</strong></h4>
                     </div>
                     <ul className="list-unstyled">
-                        <div>{comm}</div>
+                        <Stagger in>
+                            <div>{comm}</div>
+                        </Stagger>
                     </ul>
                     <CommentForm dishId={dishId} postComment={postComment}></CommentForm>
                 </div>
