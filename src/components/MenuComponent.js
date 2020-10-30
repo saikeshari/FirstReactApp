@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap'
 import { Link } from 'react-router-dom';
 import {Loading} from './LoadingComponent';
+import {baseUrl} from './shared/baseUrl';
 
 //CALLING `MENU/DISH.ID` IN CASE OF CLICK, NOW GO TO MAIN COMPONENT AND SEE
 //REMEBER THESE ARE FWD QOUTES ``
@@ -14,7 +15,7 @@ function RenderMenuItem({dish}) {
       IT WILL TAKE YOU TO THE LINK */}
       
       <Link to={`/menu/${dish.id}`} >
-        <CardImg width="100%" object src={dish.image} alt={dish.name} />
+        <CardImg width="100%" object src={baseUrl + dish.image} alt={dish.name} />
         <CardImgOverlay body className="ml-5">
           <CardTitle>{dish.name}</CardTitle>
         </CardImgOverlay>
