@@ -10,7 +10,8 @@ import Footer from './FooterComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 import About from './AboutUsComponent';
-import { addComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreators';
+//now, postComment is accessible to the user intead of addCommeny
+import { postComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreators';
 import {actions} from 'react-redux-form';
 
 //uses state to define variables dishes,comments,promos,leaders to be used here
@@ -27,7 +28,7 @@ const mapStateToProps = state => {
 //by writing this we can make use of it in maincomponent
 //remember every action can be taken place through dispatch
 const mapDispatchToProps = dispatch => ({
-  addComment: (dishId, rating, comment, author) => dispatch(addComment(dishId, rating, comment, author)),
+  postComment: (dishId, rating, comment, author) => dispatch(postComment(dishId, rating, comment, author)),
   fetchDishes: () => {dispatch(fetchDishes())},
   resetFeedbackForm: () => { dispatch(actions.reset('feedback')) },
   fetchComments: () => {dispatch(fetchComments())},
@@ -79,7 +80,7 @@ class Main extends Component{
               errmess = {this.props.dishes.errmess}
               comments={this.props.comments.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10))}
               commentsErrMess={this.props.comments.errmess}
-              addComment={this.props.addComment}
+              postComment={this.props.postComment}
             />
       );
     }

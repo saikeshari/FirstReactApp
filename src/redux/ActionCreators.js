@@ -3,15 +3,51 @@ import {DISHES} from '../components/shared/dishes';
 import {baseUrl} from '../components/shared/baseUrl';
 //specifies the payload (variables necesaary) to do the desired action type
 
-export const addComment = (dishId, rating, author, comment) => ({
+export const addComment = (comment) => ({
     type:ActionTypes.ADD_COMMENT,
-    payload: {
-        dishId: dishId,
-        rating: rating,
-        author: author,
-        comment: comment
-    }
+    payload: comment
 });
+
+export const postComment = (dishId, rating, author, comment) => (dispatch) => {
+    const newComment = {
+        dishId : dishId,
+        rating : rating, 
+        author : author,
+        comment : comment
+    }
+    newComment.date=new Date().toISOString();
+
+    //use POST method to post the comment
+    return fetch(baseUrl + 'comments', {
+        method: 'POST',
+        body : JSON.stringify(newComment),
+        headers : {
+            'Content-Type' : 'application/json', 
+        },
+        credentials : 'same-origin'
+    })
+    .then(Response => {
+        if(Response.ok) {
+            return Response;
+        }
+        else{
+            var error = new Error('Error'+Response.status+':'+Response.statusText);
+            error.Response=Response;
+            throw error;
+        }
+    },
+    //server isnt working
+    error => {
+        var errmess=new Error(error.message);
+        throw errmess;
+    })
+
+    //the application will add an id to the response we sent and returns the updates response
+    .then(response => response.json())
+    .then(response => dispatch(addComment(response)))
+    .catch(error => {console.log('Post comments' + error.message)
+        alert('Your comment could not be posted\nError: ' + error.message)})
+}
 
 //this is a thunk as it return a FUNCTION
 export const fetchDishes = () => (dispatch) => {

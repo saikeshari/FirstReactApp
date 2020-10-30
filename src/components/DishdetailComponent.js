@@ -51,8 +51,8 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
             this.setState({
                 isModalOpen: !this.state.isModalOpen
             });
-            //calling addComments function to add comment into comments to bw shown
-            this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+            //calling postComments function to add comment into comments to bw shown
+            this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
         }
 
         render(){
@@ -111,7 +111,7 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
 
 
     //DISPLAYING DISH COMMENTS 
-    function RenderComments({comments, addComment, dishId}){
+    function RenderComments({comments, postComment, dishId}){
         if(comments!=null)
         {
             const comm=comments.map((commentDisplay) =>{
@@ -132,7 +132,7 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
                     <ul className="list-unstyled">
                         <div>{comm}</div>
                     </ul>
-                    <CommentForm dishId={dishId} addComment={addComment}></CommentForm>
+                    <CommentForm dishId={dishId} postComment={postComment}></CommentForm>
                 </div>
             );
         }
@@ -184,7 +184,7 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
                             < RenderDish dish={props.dish} />
                         </div>
                         <RenderComments comments={props.comments} 
-                        addComment={props.addComment}
+                        postComment={props.postComment}
                         dishId={props.dish.id} />
                     </div>
                 </div>
