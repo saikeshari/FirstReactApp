@@ -22,9 +22,24 @@ export const fetchDishes = () => (dispatch) => {
 
     //second dispatch to add dishes to store after a delay of 2000 ms after calling dishesLoading function
     return fetch(baseUrl+'dishes')
+        .then(Response => {
+            if(Response.ok) {
+                return Response;
+            }
+            else{
+                var error = new Error('Error'+Response.status+':'+Response.statusText);
+                error.Response=Response;
+                throw error;
+            }
+        },
+        //server isnt working
+        error => {
+            var errmess=new Error(error.message);
+            throw errmess;
+        })
         .then(Response => Response.json())
-        .then(dishes => dispatch(addDishes(dishes)));
-
+        .then(dishes => dispatch(addDishes(dishes)))
+        .catch(error => dispatch(dishesfailed(error.message)))
 };
 
 //Below 3 functions are action creators which are returning ACTION ONJECTS
@@ -51,8 +66,24 @@ export const fetchComments = () => (dispatch) => {
 
     //second dispatch to add dishes to store after a delay of 2000 ms after calling dishesLoading function
     return fetch(baseUrl+'comments')
+    .then(Response => {
+        if(Response.ok) {
+            return Response;
+        }
+        else{
+            var error = new Error('Error'+Response.status+':'+Response.statusText);
+            error.Response=Response;
+            throw error;
+        }
+    },
+    //server isnt working
+    error => {
+        var errmess=new Error(error.message);
+        throw errmess;
+    })
         .then(Response => Response.json())
-        .then(comments => dispatch(addComments(comments)));
+        .then(comments => dispatch(addComments(comments)))
+        .catch(error => dispatch(commentsfailed(error.message)))
 
 };
 
@@ -74,8 +105,24 @@ export const fetchPromos = () => (dispatch) => {
 
     //second dispatch to add dishes to store after a delay of 2000 ms after calling dishesLoading function
     return fetch(baseUrl+'promotions')
+        .then(Response => {
+            if(Response.ok) {
+                return Response;
+            }
+            else{
+                var error = new Error('Error'+Response.status+':'+Response.statusText);
+                error.Response=Response;
+                throw error;
+            }
+        },
+        //server isnt working
+        error => {
+            var errmess=new Error(error.message);
+            throw errmess;
+        })
         .then(Response => Response.json())
-        .then(promos => dispatch(addPromos(promos)));
+        .then(promos => dispatch(addPromos(promos)))
+        .catch(error => dispatch(promosfailed(error.message)))
 
 };
 
